@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
+   [SerializeField] private Animator animator;
    [SerializeField] private float speed = 5f;
    [SerializeField] private LayerMask layerMask;
    [SerializeField] private Transform collect;
@@ -24,8 +25,9 @@ public class Player : MonoBehaviour
    private bool _canMoveBack;
    private bool _canMoveRight;
    private bool _canMoveLeft;
-
+   private float _currentAnim;
    private List<GameObject> m_ListCollectedBrick = new List<GameObject>();
+   int count = 0;
 
 
 
@@ -183,7 +185,8 @@ public class Player : MonoBehaviour
 
    public void OnCollectionBrick()
    {
-      Debug.Log("collect");
+      count++;
+      Debug.Log("count" + count);
       int brickCount = collect.childCount;
       Vector3 spawnPos = collect.position + Vector3.up * brickCount * 0.3f;
       body.position =new Vector3(spawnPos.x, spawnPos.y + 0.16f,spawnPos.z);
@@ -193,6 +196,9 @@ public class Player : MonoBehaviour
 
    public void UnCollectionBrick()
    {
+      count--;
+      Debug.Log("count" + count);
+
       if (m_ListCollectedBrick.Count > 0)
       {
          GameObject lastBrick = m_ListCollectedBrick[m_ListCollectedBrick.Count - 1];
@@ -202,12 +208,17 @@ public class Player : MonoBehaviour
          Vector3 spawnPos = collect.position + Vector3.up * brickCount * 0.3f;
          body.position = new Vector3(spawnPos.x, spawnPos.y - 0.3f, spawnPos.z);
       }
+      else
+      {
+         Destroy(gameObject);
+      }
       
    }
 
    public void OnWin()
    {
       _moveDirection = Vector3.zero;
+      ChangeAnim(2);
    }
 
    private void OnTriggerEnter(Collider col)
@@ -215,6 +226,15 @@ public class Player : MonoBehaviour
       if (col.CompareTag("Finish"))
       {
          OnWin();
+      }
+   }
+
+   private void ChangeAnim(float anim)
+   {
+      if (_currentAnim != anim)
+      {
+         _currentAnim = anim;
+         animator.SetFloat("player" , _currentAnim);;
       }
    }
 }
