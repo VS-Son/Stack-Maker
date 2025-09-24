@@ -11,9 +11,10 @@ public class Player : MonoBehaviour
    [SerializeField] private LayerMask layerMask;
    [SerializeField] private Transform collect;
    [SerializeField] private GameObject brickPrefab;
-   [SerializeField] private Transform player;
+   [SerializeField] private Transform body;
    [SerializeField] private Transform finishLine;
    [SerializeField] private float distanceRayCast;
+   [SerializeField] private Transform startPoint;
 
    private Rigidbody m_Rb;
    private Vector3 _moveDirection;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
    private void Start()
    {
       m_Rb = GetComponent<Rigidbody>();
+      transform.position = startPoint.position;
    }
 
    private void OnEnable()
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour
       Debug.Log("collect");
       int brickCount = collect.childCount;
       Vector3 spawnPos = collect.position + Vector3.up * brickCount * 0.3f;
-      player.position =new Vector3(spawnPos.x, spawnPos.y + 0.16f,spawnPos.z);
+      body.position =new Vector3(spawnPos.x, spawnPos.y + 0.16f,spawnPos.z);
       var collectedBrick = Instantiate(brickPrefab, spawnPos, Quaternion.Euler(new Vector3(-90,0,-180)), collect);
       m_ListCollectedBrick.Add(collectedBrick);
    }
@@ -198,7 +200,7 @@ public class Player : MonoBehaviour
          m_ListCollectedBrick.RemoveAt(m_ListCollectedBrick.Count - 1);
          int brickCount = collect.childCount;
          Vector3 spawnPos = collect.position + Vector3.up * brickCount * 0.3f;
-         player.position = new Vector3(spawnPos.x, spawnPos.y - 0.3f, spawnPos.z);
+         body.position = new Vector3(spawnPos.x, spawnPos.y - 0.3f, spawnPos.z);
       }
       
    }
@@ -206,5 +208,13 @@ public class Player : MonoBehaviour
    public void OnWin()
    {
       _moveDirection = Vector3.zero;
+   }
+
+   private void OnTriggerEnter(Collider col)
+   {
+      if (col.CompareTag("Finish"))
+      {
+         OnWin();
+      }
    }
 }

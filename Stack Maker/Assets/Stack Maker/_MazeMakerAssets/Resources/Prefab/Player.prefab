@@ -5980,7 +5980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4538506697404122}
   m_Layer: 0
-  m_Name: jiao
+  m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5994,13 +5994,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600561204760695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.159, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.10599999}
+  m_LocalScale: {x: 1, y: 0.6666664, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4265903107314394}
-  m_Father: {fileID: 2580899147284204563}
+  m_Father: {fileID: 879379308332305205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608873862797607
 GameObject:
@@ -6194,9 +6194,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2580899147284204563}
   - component: {fileID: 7903735299092338948}
+  - component: {fileID: 5077084698771114625}
   - component: {fileID: 7468939397405660384}
   m_Layer: 0
-  m_Name: People
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6216,7 +6217,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4801256949345923}
-  - {fileID: 4538506697404122}
   - {fileID: 4601659778383798788}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
@@ -6235,12 +6235,34 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0.47, z: 0}
+--- !u!114 &5077084698771114625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665665691852194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d9c8fe4dde3ed438c38bb4ac52a0f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  collect: {fileID: 879379308332305205}
+  brickPrefab: {fileID: 8474043865748990682}
+  body: {fileID: 4538506697404122}
+  finishLine: {fileID: 0}
+  distanceRayCast: 0.51
+  startPoint: {fileID: 0}
 --- !u!54 &7468939397405660384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6515,7 +6537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4801256949345923}
   m_Layer: 0
-  m_Name: twei1
+  m_Name: effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9173,7 +9195,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4538506697404122}
   m_Father: {fileID: 4601659778383798788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8474043865748990682
@@ -9189,7 +9212,7 @@ GameObject:
   - component: {fileID: 3909085718820932801}
   - component: {fileID: 7399237987733504624}
   m_Layer: 0
-  m_Name: dimian
+  m_Name: Prick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
